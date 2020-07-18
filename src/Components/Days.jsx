@@ -12,13 +12,19 @@ function Days(props) {
     const [eventTitle, handleTitle] = useState('')
     const [eventInfo, handleInfo] = useState('')
     const [day, handleDay] = useState(0)
-    const [events,handleEvents] = useState(props.Events)
+    const [events, handleEvents] = useState(props.Events)
+
+
     const setDay = (val) => {
         handleDay(val)
     }
+
+
     const closeModal = () => {
         handleModal(false)
     }
+
+
     const change = (e) => {
         if (e.target.name == 'eventTitle') {
             handleTitle(e.target.value)
@@ -27,7 +33,10 @@ function Days(props) {
             handleInfo(e.target.value)
         }
     }
+
+
     const openModal = (val) => {
+        
         console.log("hi")
         handleDay(val)
         handleModal(true)
@@ -35,41 +44,40 @@ function Days(props) {
 
     const catchInfo = () => {
         let date = day + '-' + props.Month + '-' + props.Year
-        
+
         let sendObj = {
             eventDate: date,
             title: eventTitle,
             info: eventInfo
         }
         props.event(sendObj)
+        handleModal(false)
+        window.location.reload()
+        
     }
+
+
     const changeEvent = () => {
         handleFlag(prev => !prev)
     }
-
 
     useEffect(() => {
         handleDays(props.total)
         handleEvents(props.Events)
     }, [props.total])
-let newar = []
-   
-    
-    
-    let daydiv = days.map((val, index) => {
-        let btns = []   
-        
-        //     if(events !== null)
-        //     {
-            events.map(eventvalue => {
-                if (val == eventvalue.eventDate.split('-')[0]) {
-                        btns.push(<button className="btn border">{eventvalue.title}</button>)
-                }
-            })
-        // }
-        
-        
 
+
+
+    let newar = []
+    let daydiv = days.map((val, index) => {
+        let btns = []
+
+        events.map(eventvalue => {
+            if (val == eventvalue.eventDate.split('-')[0]) {
+                btns.push(<button className="btn border">{eventvalue.title}</button>)
+            }
+        })
+        
         let indx = index + 1
 
         if (props.active !== null) {
@@ -80,7 +88,7 @@ let newar = []
                     {btns.map(btnn => {
                         return btnn
                     })}
-                    </div>)
+                </div>)
                 if (indx % 7 == 0) {
                     newar.push(<span className="col-xl-4"></span>)
                 }
@@ -91,7 +99,7 @@ let newar = []
                     {btns.map(btnn => {
                         return btnn
                     })}
-                    </div>)
+                </div>)
                 if (indx % 7 == 0) {
                     newar.push(<span className="col-xl-5"></span>)
                 }
@@ -103,8 +111,6 @@ let newar = []
                 newar.push(<span className="col-xl-5"></span>)
             }
         }
-
-
     })
 
 
@@ -126,6 +132,7 @@ let newar = []
                 <Dialog onClose={closeModal} aria-labelledby="simple-dialog-title" open={modalOpen}>
                     <div className="m-3">
                         <div className="p-3">
+                            <p>Date:{day} - {props.Month} - {props.Year}</p>
                             <input name="eventTitle" placeholder="Add Title" onChange={(e) => change(e)}></input>
                             {eventFlag ? (
                                 <React.Fragment>
