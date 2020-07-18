@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {previous} from './../Redux/Actions/Previousmonth'
+import {next} from './../Redux/Actions/Nextmonth'
 
 class Handler extends Component 
 {
@@ -15,7 +16,7 @@ class Handler extends Component
             <div className="col-xl-12 m-3 row">
                 <div className="col-2">
                     <button className="btn border" onClick={()=>this.props.previous()}>{'<----'}</button>
-                    <button className="btn border">{'---->'}</button>
+                    <button className="btn border" onClick={()=>this.props.next()}>{'---->'}</button>
                 </div>
                 <div className="col-1">
                     <h5 className ="p-2 text-left">{this.props.Month}</h5>
@@ -45,7 +46,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        previous:()=>dispatch(previous())
+        previous:()=>dispatch(previous()),
+        next:()=>dispatch(next())
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Handler)
