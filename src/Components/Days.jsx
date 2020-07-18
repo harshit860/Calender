@@ -73,7 +73,7 @@ function Days(props) {
         let btns = []
 
         events.map(eventvalue => {
-            if (val == eventvalue.eventDate.split('-')[0]) {
+            if (val == eventvalue.eventDate.split('-')[0] && eventvalue.eventDate.split('-')[1] == props.Month) {
                 btns.push(<button className="btn border">{eventvalue.title}</button>)
             }
         })
