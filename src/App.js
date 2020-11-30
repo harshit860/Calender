@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import FormComp from './component/form';
+import Home from './component/Home';
+
 
 function App() {
   return (
     <div >
-        <FormComp />
+      <Home />
     </div>
   );
 }
